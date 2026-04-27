@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorcerer's Ascent - FINAL</title>
+    <title>Sorcerer's Ascent - Local Music</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
     <style>
         body { margin: 0; background: #050505; color: white; font-family: 'Cinzel', serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
@@ -53,9 +53,10 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+// THE LINE BELOW IS WHERE THE MUSIC FILE IS LINKED
 const ASSETS = {
     bg: "https://storage.googleapis.com/producer-app-public/assets/097f4ebd-6180-4e46-8ed0-1b2afdd39c8d.jpg",
-    music: "https://storage.googleapis.com/producer-app-public/clips/612a8dcd-42db-4d74-961c-feb18682ac03.m4a"
+    music: "Circuits.mp3" // Ensure your file is named exactly this!
 };
 
 const GRAVITY = 0.4, PLAYER_SPEED = 6, JUMP_FORCE = -11;
@@ -70,7 +71,7 @@ let player = {
 let projectiles = [], enemies = [], particles = [];
 
 const bgImg = new Image(); bgImg.src = ASSETS.bg; bgImg.crossOrigin = "anonymous";
-const audio = new Audio(ASSETS.music); audio.loop = true; audio.crossOrigin = "anonymous";
+const audio = new Audio(ASSETS.music); audio.loop = true;
 
 window.addEventListener('keydown', e => {
     keys[e.code] = true;
@@ -92,7 +93,7 @@ function setSpell(type) {
 document.getElementById('start-btn').onclick = () => {
     document.getElementById('overlay').style.display = 'none';
     gameState = 'playing';
-    audio.play().catch(() => {});
+    audio.play().catch((err) => console.log("Audio load error:", err));
     requestAnimationFrame(render);
 };
 
